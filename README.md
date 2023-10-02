@@ -7,13 +7,13 @@
 <h1 align="center">APS 6</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.  shields.io/github/languages/top/DanielMoraisCruz/aps-6?color=56BEB8">
+  <img alt="Github top language" src="https://img.  shields.io/github/languages/top/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/DanielMoraisCruz/aps-6?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/DanielMoraisCruz/aps-6?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/DanielMoraisCruz/aps-6?color=56BEB8">
+  <img alt="License" src="https://img.shields.io/github/license/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
 </p>
 
@@ -39,23 +39,20 @@
 
 ## :dart: About ##
 
-O objetivo do projeto é desenvolver um sistema de cadastro com autenticação de usuários, utilizando recinhecimento facial
+O objetivo é desenvolver um Sistema de Cadastro com Autenticação por Reconhecimento Facial em Python com Utilização do OpenCV e Flask.
+O projeto é um trabalho da Universidade Paulista - UNIP, para a matéria de APS - Atividade Prática Supervisionada.
 
-## :sparkles: Features ##
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
 
 ## :rocket: Technologies ##
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+- 
+- 
+- 
+- 
+- 
 
 ## :white_check_mark: Requirements ##
 
