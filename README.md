@@ -42,38 +42,30 @@
 O objetivo é desenvolver um Sistema de Cadastro com Autenticação por Reconhecimento Facial em Python com Utilização do OpenCV e Flask.
 O projeto é um trabalho da Universidade Paulista - UNIP, para a matéria de APS - Atividade Prática Supervisionada.
 
-
-
 ## :rocket: Technologies ##
 
 The following tools were used in this project:
 
-- 
-- 
-- 
-- 
-- 
+- [Python](https://www.python.org)
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/)
+- [OpenCV](https://opencv.org/)
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Python](https://www.python.org) installed.
 
 ## :checkered_flag: Starting ##
 
 ```bash
 # Clone this project
-$ git clone https://github.com/DanielMoraisCruz/aps-6
+$ git clone https://github.com/DanielMoraisCruz/Sistema-de-Reconhecimento-facial
 
 # Access
-$ cd aps-6
+$ cd Sistema-de-Reconhecimento-facial
 
-# Install dependencies
-$ yarn
+$ pip install -r requirements.txt
 
-# Run the project
-$ yarn start
-
-# The server will initialize in the <http://localhost:3000>
+# Run the project, main -> "api.py"
 ```
 
 ## :memo: License ##
@@ -81,8 +73,9 @@ $ yarn start
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 
-Made with :heart: by <a href="https://github.com/DanielMoraisCruz" target="_blank">Daniel Morais Cruz</a>
-
-&#xa0;
+Made with :heart: by <a href="https://github.com/DanielMoraisCruz" target="_blank">Daniel Morais Cruz</a> &#xa0;
+<a href="https://github.com/_" target="_blank">_</a>&#xa0;
+<a href="https://github.com/_" target="_blank">_</a>&#xa0;
+<a href="https://github.com/_" target="_blank">_</a>&#xa0;
 
 <a href="#top">Back to top</a>
