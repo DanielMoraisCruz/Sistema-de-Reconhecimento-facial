@@ -22,3 +22,4 @@ def take_photo():
     camera.release()
     cv2.destroyAllWindows()
     return image_file
+
