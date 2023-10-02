@@ -65,6 +65,13 @@ button:hover {
     width: 100%;
 }
 
+canvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 /* Tela de Login */
 h2 {
     text-align: center;
