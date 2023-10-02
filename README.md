@@ -1,7 +1,5 @@
 <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="APS 6" />
-
-  &#xa0;
+  <img src="./.github/app.gif" alt="APS 6" />&#xa0;
 
   <!-- <a href="https://aps6.netlify.app">Demo</a> -->
 </div>
@@ -9,7 +7,7 @@
 <h1 align="center">APS 6</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/DanielMoraisCruz/aps-6?color=56BEB8">
+  <img alt="Github top language" src="https://img.  shields.io/github/languages/top/DanielMoraisCruz/aps-6?color=56BEB8">
 
   <img alt="Github language count" src="https://img.shields.io/github/languages/count/DanielMoraisCruz/aps-6?color=56BEB8">
 
@@ -17,16 +15,11 @@
 
   <img alt="License" src="https://img.shields.io/github/license/DanielMoraisCruz/aps-6?color=56BEB8">
 
-  <!-- <img alt="Github issues" src="https://img.shields.io/github/issues/DanielMoraisCruz/aps-6?color=56BEB8" /> -->
-
-  <!-- <img alt="Github forks" src="https://img.shields.io/github/forks/DanielMoraisCruz/aps-6?color=56BEB8" /> -->
-
-  <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/DanielMoraisCruz/aps-6?color=56BEB8" /> -->
 </p>
 
 <!-- Status -->
 
-<!-- <h4 align="center"> 
+<h4 align="center">
 	🚧  APS 6 🚀 Under construction...  🚧
 </h4> 
 
@@ -46,7 +39,7 @@
 
 ## :dart: About ##
 
-Describe your project
+O objetivo do projeto é desenvolver um sistema de cadastro com autenticação de usuários, utilizando recinhecimento facial
 
 ## :sparkles: Features ##
 
