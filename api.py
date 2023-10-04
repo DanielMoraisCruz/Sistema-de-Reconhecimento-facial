@@ -1,4 +1,4 @@
-from flask import Flask, Response, jsonify, request
+from flask import Flask, jsonify, request
 
 from user import User
 
@@ -19,29 +19,26 @@ def valid_login(user: User):
 
 @app.route('/login', methods=['POST'])
 def login():
+    # Recebe os dados do login
     user: User = User()
-    try:
-        user['email'] = request.json['email']
-        user['password'] = request.json['password']
-        user['cpf'] = request.json['cpf']
-        user['foto'] = request.json['img']
-    except KeyError:
-        return Response('Missing parameters', status=400)
+    # verifica se o usuário existe no banco
 
-    if valid_login(user):
-        user['token'] = user.generate_token()
-        usuarios_logado.append(user['token'])
-        return jsonify(user)
-    else:
-        return Response('Invalid login', status=401)
+    data = request.get_json()
+    user.infos['email'] = data['email']
+    user.infos['password'] = data['password']
+    user.infos['img'] = data['img']
 
-    # Checa se o usuário está logado
+    token = user.generate_token()
+    usuarios_logado.append(token)
+    user.infos['token'] = token
 
-    # Checa o nivel de acesso do usuário
-    # Checa se o usuário existe
-    # Se existir, verifica se a senha está correta
-    # Se estiver, loga
-    # Se não estiver, retorna erro
+    return user.infos, 200
+
+    # Valida os dados
+    # Se os dados forem válidos, retorna o token
+    # Se os dados forem inválidos, retorna erro
+
+    return jsonify('LOGIN')
 
 
 @app.route('/users', methods=['GET'])
@@ -51,7 +48,7 @@ def get_users():
     # Se for admin, retorna todos os usuários
     # Se não for admin, retorna apenas o usuário logado
 
-    return Response('GET ALL USERS')
+    return jsonify('GET ALL USERS')
 
 
 @app.route('/users/<int:id>', methods=['GET'])
@@ -62,7 +59,7 @@ def get_user(id):
     # Se existir, retorna o usuário
     # Se não existir, retorna erro
 
-    return Response(f'GET USER {id}')
+    return jsonify(f'GET USER {id}')
 
 
 @app.route('/users', methods=['POST'])
@@ -73,7 +70,7 @@ def post_user():
     # Se existir, retorna erro
     # Se não existir, cria o usuário
 
-    return Response('POST USER')
+    return jsonify('POST USER')
 
 
 @app.route('/users/<int:id>', methods=['PUT'])
@@ -85,7 +82,7 @@ def put_user(id):
     # Se tiver, edita
     # Se não existir, retorna erro
 
-    return Response(f'PUT USER {id}')
+    return jsonify(f'PUT USER {id}')
 
 
 @app.route('/users/<int:id>', methods=['DELETE'])
@@ -97,7 +94,7 @@ def delete_user(id):
     # Se tiver, deleta
     # Se não existir, retorna erro
 
-    return Response(f'DELETE USER {id}')
+    return jsonify(f'DELETE USER {id}')
 
 
 if __name__ == '__main__':
