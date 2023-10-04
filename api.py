@@ -1,4 +1,6 @@
-from flask import Flask, Response
+from flask import Flask, Response, jsonify, request
+
+from user import User
 
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
@@ -7,6 +9,39 @@ app.config['JASON_SORT_KEYS'] = False
 # cadastro |email, senha, cpf, foto em base64|
 
 # CRUD |create, read, update, delete|
+
+usuarios_logado = []
+
+
+def valid_login(user: User):
+    return False
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    user: User = User()
+    try:
+        user['email'] = request.json['email']
+        user['password'] = request.json['password']
+        user['cpf'] = request.json['cpf']
+        user['foto'] = request.json['img']
+    except KeyError:
+        return Response('Missing parameters', status=400)
+
+    if valid_login(user):
+        user['token'] = user.generate_token()
+        usuarios_logado.append(user['token'])
+        return jsonify(user)
+    else:
+        return Response('Invalid login', status=401)
+
+    # Checa se o usuário está logado
+
+    # Checa o nivel de acesso do usuário
+    # Checa se o usuário existe
+    # Se existir, verifica se a senha está correta
+    # Se estiver, loga
+    # Se não estiver, retorna erro
 
 
 @app.route('/users', methods=['GET'])
@@ -63,18 +98,6 @@ def delete_user(id):
     # Se não existir, retorna erro
 
     return Response(f'DELETE USER {id}')
-
-
-@app.route('/login', methods=['POST'])
-def login():
-    # Checa se o usuário está logado
-    # Checa o nivel de acesso do usuário
-    # Checa se o usuário existe
-    # Se existir, verifica se a senha está correta
-    # Se estiver, loga
-    # Se não estiver, retorna erro
-
-    return Response('LOGIN')
 
 
 if __name__ == '__main__':
