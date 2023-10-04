@@ -5,10 +5,6 @@ from user import User
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
 
-# login |email e senha|
-# cadastro |email, senha, cpf, foto em base64|
-
-# CRUD |create, read, update, delete|
 
 usuarios_logado = []
 
