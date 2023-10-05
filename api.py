@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-from user import User
+from usuario.user import User
 
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
