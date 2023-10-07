@@ -1,6 +1,7 @@
 import random
 
 import bcrypt
+from flask import request
 
 NIVEL3 = 3
 NIVEL2 = 2
@@ -8,12 +9,14 @@ NIVEL1 = 1
 
 
 class User(object):
-    def __init__(self, email: str, password: str, cpf: str, img: str = '',
-                 nivel_acess: int = 0) -> None:
+
+    def __init__(self, email: str = '', password: str = '', cpf: str = '',
+                 image: str = '', nivel_acess: int = 0) -> None:
+        print(email, password, cpf, image, nivel_acess)
         self.email = email
         self.password = self.senha_criptografada(password)
         self.cpf = self.trata_cpf(cpf)
-        self.img = img
+        self.image = image
         self.nivel_acesso = nivel_acess
         self.infos: dict = {}
 
@@ -24,15 +27,15 @@ class User(object):
         num = random.randint(1000, 9999)
         self.token = f"{self.cpf}{num}"
 
-    def return_infos(self) -> dict:
+    def return_infos(self, pw: bool = False) -> dict:
         '''Retorna as informações do usuário de acordo com o nível de acesso'''
 
         self.infos['email'] = self.email
         self.infos['nivel_acesso'] = self.nivel_acesso
         self.infos['cpf'] = self.cpf
         self.infos['token'] = self.token
-        self.infos['password'] = self.password
-        self.infos['img'] = self.img
+        self.infos['password'] = self.password if pw else None
+        self.infos['image'] = self.image
 
         return self.infos
 
@@ -48,8 +51,16 @@ class User(object):
     def verifica_senha(self, senha: str):
         return bcrypt.checkpw(senha.encode('utf-8'), self.password)
 
+    @staticmethod
+    def criar_login(login: request):
+        # print(login)
+        email: str = login['email']
+        password: str = login['password']
+        image: str = login['image']
+        return User(email, password, image=image)
+
 
 if __name__ == '__main__':
     user = User()
-    infos_user = user.return_infos(NIVEL3)
+    infos_user = user.return_infos()
     print(infos_user)

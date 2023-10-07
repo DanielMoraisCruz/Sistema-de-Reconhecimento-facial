@@ -1,5 +1,5 @@
 <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="APS 6" />&#xa0;
+  <image src="./.github/app.gif" alt="APS 6" />&#xa0;
 
   <!-- <a href="https://aps6.netlify.app">Demo</a> -->
 </div>
@@ -7,13 +7,13 @@
 <h1 align="center">APS 6</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.  shields.io/github/languages/top/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
+  <image alt="Github top language" src="https://image.  shields.io/github/languages/top/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
+  <image alt="Github language count" src="https://image.shields.io/github/languages/count/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
+  <image alt="Repository size" src="https://image.shields.io/github/repo-size/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
-  <img alt="License" src="https://img.shields.io/github/license/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
+  <image alt="License" src="https://image.shields.io/github/license/DanielMoraisCruz/Sistema-de-Reconhecimento-facial?color=56BEB8">
 
 </p>
 
