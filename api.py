@@ -1,16 +1,17 @@
 from flask import Flask, jsonify, request
 
+from operacoes_db import (add_user, delet_user, edit_user, get_user,
+                          verifica_user)
 from usuario.user import User
 
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
 
 
-usuarios_logado = []
-
-
 def valid_login(user: User):
-    return False
+    if not (verifica_user(user)):
+        return False
+    # Validação por IA do login
 
 
 @app.route('/login', methods=['POST'])
@@ -20,21 +21,20 @@ def login():
     # verifica se o usuário existe no banco
 
     data = request.get_json()
+    user.infos = user.return_infos(3)
+
     user.infos['email'] = data['email']
     user.infos['password'] = data['password']
     user.infos['img'] = data['img']
 
+    # Validação por IA do login
+    if not valid_login(user):
+        return 'Usuário não encontrado', 404
+
     token = user.generate_token()
-    usuarios_logado.append(token)
     user.infos['token'] = token
 
     return user.infos, 200
-
-    # Valida os dados
-    # Se os dados forem válidos, retorna o token
-    # Se os dados forem inválidos, retorna erro
-
-    return jsonify('LOGIN')
 
 
 @app.route('/users', methods=['GET'])
