@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 from operacoes_db import (add_user, delet_user, edit_user, get_user,
                           verifica_user)
@@ -6,6 +7,7 @@ from usuario.user import User
 
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
+CORS(app)
 
 
 def valid_login(user: User):
