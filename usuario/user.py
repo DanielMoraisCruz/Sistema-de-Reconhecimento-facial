@@ -12,7 +12,6 @@ class User(object):
 
     def __init__(self, email: str = '', password: str = '', cpf: str = '',
                  image: str = '', nivel_acess: int = 0) -> None:
-        print(email, password, cpf, image, nivel_acess)
         self.email = email
         self.password = self.senha_criptografada(password)
         self.cpf = self.trata_cpf(cpf)
@@ -53,7 +52,6 @@ class User(object):
 
     @staticmethod
     def criar_login(login: request):
-        # print(login)
         email: str = login['email']
         password: str = login['password']
         image: str = login['image']
@@ -63,4 +61,3 @@ class User(object):
 if __name__ == '__main__':
     user = User()
     infos_user = user.return_infos()
-    print(infos_user)
