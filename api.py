@@ -1,8 +1,7 @@
 from flask import Flask, Response, jsonify, request  # , abort
 from flask_cors import CORS
 
-from operacoes_db import get_one_user  # add_user, delet_user, get_user,
-from operacoes_db import user_existe
+from operacoes_db import add_user, delet_user, get_one_user, user_existe
 from recog_face import verifica_rosto
 from usuario.user import User
 
@@ -31,9 +30,31 @@ def login():
     return jsonify(user.return_infos())
 
 
+@app.route('/cadastro', methods=['POST'])
+def cadastrar_user():
+    user: User = User.criar_user(request.get_json())
+
+    if user_existe(user):
+        return resource_not_found('Usuário já cadastrado')
+
+    try:
+        add_user(user)
+    except Exception as e:
+        return resource_not_found('Erro ao cadastrar usuário ' + str(e))
+    return jsonify(user.return_infos())
+
+
 @app.route('/admin', methods=['DELETE'])
 def delete_user():
-    return jsonify('DELETE USER')
+    user: User = User.criar_user(request.get_json())
+    if not user_existe(user):
+        return resource_not_found('Usuário não encontrado')
+
+    try:
+        delet_user(user)
+    except Exception as e:
+        return resource_not_found('Erro ao deletar usuário ' + str(e))
+    return jsonify(user.return_infos())
 
 
 @app.route('/admin', methods=['PATCH'])

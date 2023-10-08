@@ -32,12 +32,13 @@ def verifica_rosto(user: User):
 
     faces_1 = encod_face(user.image)
 
-    user_db = get_user(user.email)
-    faces_2 = user_db[0][3]  # carrega_encoda_rosto(user_db[0][3])
+    user_db = get_user(user)
+
+    faces_2 = encod_face(user_db[0][3])
 
     # Compara os dois rostos
+    print(faces_1, faces_2, type(faces_1), type(faces_2))
     result = fr.compare_faces([faces_1], faces_2, tolerance=0.5)
-
     if result[0]:
         return True
     else:
@@ -47,13 +48,7 @@ def verifica_rosto(user: User):
 if __name__ == '__main__':
     user = User()
     user.email = 'daniel.jack.dmc@gmail.com'
-    # tirar a foto usando opencv
-    # video = cv2.VideoCapture(0)
-    # _, frame = video.read()
-    # cv2.imwrite('daniel.jpg', frame)
-    # video.release()
-    # cv2.destroyAllWindows()
 
     user.image = 'daniel.jpg'
 
-    verifica_rosto(user)
+    print('foi') if verifica_rosto(user) else print('não foi')

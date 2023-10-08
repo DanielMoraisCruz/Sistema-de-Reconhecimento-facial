@@ -1,7 +1,7 @@
+import base64
 import random
 
 import bcrypt
-from flask import request
 
 NIVEL3 = 3
 NIVEL2 = 2
@@ -22,7 +22,7 @@ class User(object):
         self.token = ''
         self.generate_token()
 
-    def generate_token(self) -> str:
+    def generate_token(self):
         num = random.randint(1000, 9999)
         self.token = f"{self.cpf}{num}"
 
@@ -40,22 +40,40 @@ class User(object):
 
     def trata_cpf(self, cpf: str) -> str:
         '''Trata o cpf para ser armazenado no banco de dados'''
-        cpf = cpf.replace('.', '')
-        cpf = cpf.replace('-', '')
+        cpf = cpf.replace('.', '').replace('-', '')
         return cpf
 
     def senha_criptografada(self, senha: str):
-        return f"{bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())}"
+        salt = bcrypt.gensalt()
+        hashed = bcrypt.hashpw(senha.encode('utf-8'), salt)
+        return hashed.decode('utf-8')
 
     def verifica_senha(self, senha: str):
-        return bcrypt.checkpw(senha.encode('utf-8'), self.password)
+        return bcrypt.checkpw(senha.encode('utf-8'),
+                              self.password.encode('utf-8'))
 
     @staticmethod
-    def criar_login(login: request):
+    def criar_login(login):
         email: str = login['email']
         password: str = login['password']
-        image: str = login['image']
+        image: str = decoda_img(login['image'])
         return User(email, password, image=image)
+
+    @staticmethod
+    def criar_user(user):
+        email: str = user['email']
+        password: str = user['password']
+        cpf: str = user['cpf']
+        image: str = decoda_img(user['image'])
+        # nivel_acess: int = user['nivel_acess']
+        return User(email, password, cpf, image)  # nivel_acess)
+
+
+def decoda_img(img):
+    image = base64.b64decode(img)
+    with open('imagem.jpg', 'wb') as f:
+        f.write(image)
+    return 'imagem.jpg'
 
 
 if __name__ == '__main__':
