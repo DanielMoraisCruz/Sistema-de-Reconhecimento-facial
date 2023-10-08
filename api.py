@@ -1,17 +1,14 @@
-from flask import Flask, jsonify, request, abort, Response
+from flask import Flask, Response, jsonify, request  # , abort
 from flask_cors import CORS
 
-from operacoes_db import add_user, delet_user, get_user, user_existe, get_one_user
+from operacoes_db import get_one_user  # add_user, delet_user, get_user,
+from operacoes_db import user_existe
+from recog_face import verifica_rosto
 from usuario.user import User
 
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
 CORS(app)
-
-
-def validacao_por_IA(user: User):
-    return True
-    # Validação por IA do login
 
 
 @app.route('/login', methods=['POST'])
@@ -24,11 +21,12 @@ def login():
     if not user_existe(user):
         return resource_not_found(cred_invalid_error)
 
-    if not validacao_por_IA(user):
+    if not verifica_rosto(user):
         return resource_not_found(cred_invalid_error)
 
     persisted_user = get_one_user(user)
-    user = User(persisted_user[0], persisted_user[1], persisted_user[2], persisted_user[3], persisted_user[4])
+    user = User(persisted_user[0], persisted_user[1],
+                persisted_user[2], persisted_user[3], persisted_user[4])
 
     return jsonify(user.return_infos())
 

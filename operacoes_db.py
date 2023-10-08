@@ -78,18 +78,21 @@ def get_one_user(user: User = None):
         raise LookupError("User does not exists")
     db = connect_to_db()
     cursor = db.cursor()
-    comando = """SELECT email, password, cpf, img, nivel_acesso, token FROM usuarios WHERE email = ?"""
+    comando = """SELECT email, password, cpf, img, nivel_acesso, token
+                 FROM usuarios WHERE email = ?"""
     cursor.execute(comando, [user.email])
     result = cursor.fetchone()
     db.close()
     return result
 
+
 def valida_senha_usuario(user: User):
     db = connect_to_db()
     cursor = db.cursor()
-    comando = f'SELECT password FROM usuarios WHERE cpf = "{user.cpf}"'
-    cursor.execute(comando)
+    comando = 'SELECT password FROM usuarios WHERE cpf = ?'
+    cursor.execute(comando, [user.cpf])
     result = cursor.fetchall()
+    print(result, 'Ainda não implementado')
 
     # if result == user.password:
     #     return True
@@ -101,6 +104,7 @@ def connect_to_db():
     db = sqlite3.connect("./database/database.db")
     return db
 
+
 if __name__ == "__main__":
     user: User = User(
         email="daniel.jack.dmc@gmail.com",
@@ -109,4 +113,3 @@ if __name__ == "__main__":
         image="daniel.jpg",
         nivel_acess=3
     )
-
