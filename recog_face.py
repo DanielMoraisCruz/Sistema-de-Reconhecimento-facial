@@ -5,7 +5,7 @@ from operacoes_db import get_user
 from usuario.user import User
 
 
-def carrega_encoda_rosto(img=None):
+def encod_face(img=None):
     if img is None:
         raise LookupError("Image does not exists")
     # Carrega a imagem
@@ -30,10 +30,10 @@ def carrega_encoda_rosto(img=None):
 def verifica_rosto(user: User):
     # Carrega a imagem
 
-    faces_1 = carrega_encoda_rosto(user.image)
+    faces_1 = encod_face(user.image)
 
     user_db = get_user(user.email)
-    faces_2 = carrega_encoda_rosto(user_db[0][3])
+    faces_2 = user_db[0][3]  # carrega_encoda_rosto(user_db[0][3])
 
     # Compara os dois rostos
     result = fr.compare_faces([faces_1], faces_2, tolerance=0.5)
