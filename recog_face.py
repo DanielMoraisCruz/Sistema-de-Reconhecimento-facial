@@ -36,8 +36,11 @@ def verifica_rosto(user: User):
         user_db = get_user(user)
 
         faces_2 = encod_face(user_db[0][3])
-    except "Face not found" as e:
-        return False
+    except Exception as e:
+        if str(e) == "Face not found":
+            return False
+        else:
+            raise e
 
     # Compara os dois rostos
     if faces_2 == [] or faces_1 == []:

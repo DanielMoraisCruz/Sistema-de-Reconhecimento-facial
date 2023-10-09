@@ -69,7 +69,6 @@ class User(object):
         return User(email, password, cpf, image, nivel)
 
 
-
 if __name__ == '__main__':
     user = User()
     infos_user = user.return_infos()
