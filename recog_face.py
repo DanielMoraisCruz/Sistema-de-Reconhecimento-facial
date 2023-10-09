@@ -2,6 +2,7 @@ import base64
 
 import cv2
 import face_recognition as fr
+import numpy as np
 
 from operacoes_db import get_user
 from usuario.user import User
@@ -11,10 +12,12 @@ def encod_face(img=None):
     if img is None:
         raise "Image does not exists"
     # Carrega a imagem
-    img = cv2.imread(img)
+    image = base64.b64decode(img)
+    image = np.frombuffer(image, dtype=np.uint8)
+    image = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
     # Converte a imagem para RGB
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     # Encontra os encodings dos rostos
     faces_enc = fr.face_encodings(img_rgb)
@@ -27,11 +30,11 @@ def encod_face(img=None):
 def verifica_rosto(user: User):
     # Carrega a imagem
 
-    faces_1 = encod_face(decoda_img(user.image))
+    faces_1 = encod_face(user.image)
 
     user_db = get_user(user)
 
-    faces_2 = encod_face(decoda_img(user_db[0][3]))
+    faces_2 = encod_face(user_db[0][3])
 
     # Compara os dois rostos
     if faces_2 == [] or faces_1 == []:
@@ -44,17 +47,5 @@ def verifica_rosto(user: User):
         return False
 
 
-def decoda_img(img):
-    image = base64.b64decode(img)
-    with open('imagem.jpg', 'wb') as f:
-        f.write(image)
-    return 'imagem.jpg'
-
-
 if __name__ == '__main__':
-    user = User()
-    user.email = 'daniel.jack.dmc@gmail.com'
-
-    user.image = 'daniel.jpg'
-
-    print('foi') if verifica_rosto(user) else print('não foi')
+    pass
