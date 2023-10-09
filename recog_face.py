@@ -30,17 +30,23 @@ def encod_face(img=None):
 def verifica_rosto(user: User):
     # Carrega a imagem
 
-    faces_1 = encod_face(user.image)
+    try:
+        faces_1 = encod_face(user.image)
 
-    user_db = get_user(user)
+        user_db = get_user(user)
 
-    faces_2 = encod_face(user_db[0][3])
+        faces_2 = encod_face(user_db[0][3])
+    except "Face not found" as e:
+        return False
 
     # Compara os dois rostos
     if faces_2 == [] or faces_1 == []:
         return False
 
-    result = fr.compare_faces([faces_1], faces_2, tolerance=0.7)
+    faces_1 = np.array(faces_1)
+    faces_2 = np.array(faces_2)
+
+    result = fr.compare_faces(faces_1, faces_2, tolerance=0.3)
     if result[0]:
         return True
     else:

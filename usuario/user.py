@@ -65,8 +65,9 @@ class User(object):
         password: str = user['password']
         cpf: str = user['cpf']
         image: str = user['image']
-        nivel_acess: int = user['nivel_acess']
-        return User(email, password, cpf, image, nivel_acess)
+        nivel: int = user['nivel']
+        return User(email, password, cpf, image, nivel)
+
 
 
 if __name__ == '__main__':

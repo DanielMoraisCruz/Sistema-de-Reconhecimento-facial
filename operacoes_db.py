@@ -1,5 +1,7 @@
 import sqlite3
 
+from flask import jsonify
+
 from usuario.user import User
 
 # create a connection to the database
@@ -108,6 +110,20 @@ def valida_senha_usuario(user: User):
         return True
     else:
         return False
+
+
+def checar_nivel(user: User):
+    db = connect_to_db()
+    cursor = db.cursor()
+    comando = """SELECT * FROM usuarios WHERE nivel_acesso = ? AND email = ?"""
+    cursor.execute(comando, [user.nivel_acesso, user.email])
+    result = cursor.fetchall()
+    db.close()
+
+    if result == []:
+        return jsonify({"permitido": False})
+    else:
+        return jsonify({"permitido": True})
 
 
 def connect_to_db():

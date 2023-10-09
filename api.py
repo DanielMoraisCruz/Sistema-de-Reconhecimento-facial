@@ -1,7 +1,7 @@
 from flask import Flask, Response, jsonify, request  # , abort
 from flask_cors import CORS
 
-from operacoes_db import add_user, delet_user, get_one_user, user_existe
+from operacoes_db import add_user, delet_user, get_one_user, user_existe, checar_nivel
 from recog_face import verifica_rosto
 from usuario.user import User
 
@@ -55,6 +55,24 @@ def delete_user():
     except Exception as e:
         return resource_not_found('Erro ao deletar usuário ' + str(e))
     return jsonify(user.return_infos())
+
+
+@app.route('/check-access/3', methods=['GET'])
+def check_nivel3():
+    user: User = User.criar_user(request.get_json())
+    return checar_nivel(user)
+
+
+@app.route('/check-access/2', methods=['GET'])
+def check_nivel2():
+    user: User = User.criar_user(request.get_json())
+    return checar_nivel(user)
+
+
+@app.route('/check-access/1', methods=['GET'])
+def check_nivel1():
+    user: User = User.criar_user(request.get_json())
+    return checar_nivel(user)
 
 
 def resource_not_found(message: str) -> Response:
