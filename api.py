@@ -57,11 +57,6 @@ def delete_user():
     return jsonify(user.return_infos())
 
 
-@app.route('/admin', methods=['PATCH'])
-def mudar_nivel_acesso():
-    return jsonify('PATCH USER')
-
-
 def resource_not_found(message: str) -> Response:
     error_message = {"message": message}
     response = jsonify(error_message)

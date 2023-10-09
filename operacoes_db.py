@@ -15,6 +15,7 @@ def user_existe(user) -> bool:
     comando = "SELECT * FROM usuarios WHERE email = ? OR cpf = ?"
     cursor.execute(comando, (email, cpf))
     result = cursor.fetchone()
+    db.close()
     if result:
         return True
     else:
@@ -39,6 +40,7 @@ def add_user(user: User):
     ))
     db.commit()
 
+    db.close()
     return "Usuário adicionado com sucesso"
 
 
@@ -51,6 +53,8 @@ def delet_user(user: User):
     comando = 'DELETE FROM usuarios WHERE cpf = ?'
     cursor.execute(comando, [user.cpf])
     db.commit()
+
+    db.close()
 
     return "Usuário deletado com sucesso"
 
@@ -69,6 +73,7 @@ def get_user(user: User = None):
         comando = "SELECT * FROM usuarios"
         cursor.execute(comando)
     result = cursor.fetchall()
+    db.close()
 
     return result
 
@@ -90,14 +95,19 @@ def valida_senha_usuario(user: User):
     db = connect_to_db()
     cursor = db.cursor()
     comando = 'SELECT password FROM usuarios WHERE cpf = ?'
+    cursor.row_factory = sqlite3.Row
     cursor.execute(comando, [user.cpf])
     result = cursor.fetchall()
-    print(result, 'Ainda não implementado')
+    db.close()
 
-    # if result == user.password:
-    #     return True
-    # else:
-    #     return False
+    if result == []:
+        return False
+
+    print(result[0]['password'], user.password)
+    if result[0]['password'] == user.password:
+        return True
+    else:
+        return False
 
 
 def connect_to_db():
@@ -113,3 +123,6 @@ if __name__ == "__main__":
         image="daniel.jpg",
         nivel_acess=3
     )
+
+    delet_user(user)
+    print('foi') if valida_senha_usuario(user) else print('não foi')

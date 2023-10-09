@@ -1,4 +1,4 @@
-import base64
+
 import random
 
 import bcrypt
@@ -56,7 +56,7 @@ class User(object):
     def criar_login(login):
         email: str = login['email']
         password: str = login['password']
-        image: str = decoda_img(login['image'])
+        image: str = login['image']
         return User(email, password, image=image)
 
     @staticmethod
@@ -64,16 +64,9 @@ class User(object):
         email: str = user['email']
         password: str = user['password']
         cpf: str = user['cpf']
-        image: str = decoda_img(user['image'])
-        # nivel_acess: int = user['nivel_acess']
-        return User(email, password, cpf, image)  # nivel_acess)
-
-
-def decoda_img(img):
-    image = base64.b64decode(img)
-    with open('imagem.jpg', 'wb') as f:
-        f.write(image)
-    return 'imagem.jpg'
+        image: str = user['image']
+        nivel_acess: int = user['nivel_acess']
+        return User(email, password, cpf, image, nivel_acess)
 
 
 if __name__ == '__main__':

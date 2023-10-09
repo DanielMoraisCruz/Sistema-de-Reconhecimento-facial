@@ -1,3 +1,5 @@
+import base64
+
 import cv2
 import face_recognition as fr
 
@@ -7,22 +9,17 @@ from usuario.user import User
 
 def encod_face(img=None):
     if img is None:
-        raise LookupError("Image does not exists")
+        raise "Image does not exists"
     # Carrega a imagem
     img = cv2.imread(img)
 
     # Converte a imagem para RGB
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    # Encontra os rostos na imagem
-    faces_loc = fr.face_locations(img_rgb)[0]
-
-    cv2.rectangle(img, (faces_loc[3], faces_loc[0]),
-                  (faces_loc[1], faces_loc[2]), (0, 255, 0), 2)
-
     # Encontra os encodings dos rostos
-    faces_enc = fr.face_encodings(img_rgb)[0]
-
+    faces_enc = fr.face_encodings(img_rgb)
+    if faces_enc == []:
+        raise "Face not found"
     return faces_enc
 
 
@@ -30,19 +27,28 @@ def encod_face(img=None):
 def verifica_rosto(user: User):
     # Carrega a imagem
 
-    faces_1 = encod_face(user.image)
+    faces_1 = encod_face(decoda_img(user.image))
 
     user_db = get_user(user)
 
-    faces_2 = encod_face(user_db[0][3])
+    faces_2 = encod_face(decoda_img(user_db[0][3]))
 
     # Compara os dois rostos
-    print(faces_1, faces_2, type(faces_1), type(faces_2))
-    result = fr.compare_faces([faces_1], faces_2, tolerance=0.5)
+    if faces_2 == [] or faces_1 == []:
+        return False
+
+    result = fr.compare_faces([faces_1], faces_2, tolerance=0.7)
     if result[0]:
         return True
     else:
         return False
+
+
+def decoda_img(img):
+    image = base64.b64decode(img)
+    with open('imagem.jpg', 'wb') as f:
+        f.write(image)
+    return 'imagem.jpg'
 
 
 if __name__ == '__main__':
