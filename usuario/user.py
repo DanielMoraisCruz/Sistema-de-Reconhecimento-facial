@@ -72,3 +72,4 @@ class User(object):
 if __name__ == '__main__':
     user = User()
     infos_user = user.return_infos()
+    print(infos_user)

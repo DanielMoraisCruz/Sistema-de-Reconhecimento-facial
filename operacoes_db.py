@@ -1,7 +1,5 @@
 import sqlite3
 
-from flask import jsonify
-
 from usuario.user import User
 
 # create a connection to the database
@@ -18,10 +16,10 @@ def user_existe(user) -> bool:
     cursor.execute(comando, (email, cpf))
     result = cursor.fetchone()
     db.close()
-    if result:
-        return True
-    else:
+    if result == [] or result is None:
         return False
+    else:
+        return True
 
 
 def add_user(user: User):
@@ -55,6 +53,13 @@ def delet_user(user: User):
     comando = 'DELETE FROM usuarios WHERE cpf = ?'
     cursor.execute(comando, [user.cpf])
     db.commit()
+
+    # busca o usuario deletado
+    comando = 'SELECT * FROM usuarios WHERE cpf = ?'
+    cursor.execute(comando, [user.cpf])
+    result = cursor.fetchone()
+    if result is not None:
+        return "Erro ao deletar usuário"
 
     db.close()
 
@@ -112,18 +117,18 @@ def valida_senha_usuario(user: User):
         return False
 
 
-def checar_nivel(user: User):
+def checar_nivel(user: User, nivel_acesso: int):
     db = connect_to_db()
     cursor = db.cursor()
-    comando = """SELECT * FROM usuarios WHERE nivel_acesso = ? AND email = ?"""
-    cursor.execute(comando, [user.nivel_acesso, user.email])
+    comando = "SELECT * FROM usuarios WHERE nivel_acesso = ? AND email = ?"
+    cursor.execute(comando, [nivel_acesso, user.email])
     result = cursor.fetchall()
     db.close()
 
-    if result == []:
-        return jsonify({"permitido": False})
+    if result == [] or result is None:
+        return 'Usuário não tem permissão', 401
     else:
-        return jsonify({"permitido": True})
+        return 'Usuário tem permissão', 200
 
 
 def connect_to_db():
@@ -132,6 +137,7 @@ def connect_to_db():
 
 
 if __name__ == "__main__":
+    # Test
     user: User = User(
         email="daniel.jack.dmc@gmail.com",
         password="1234567",

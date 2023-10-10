@@ -57,4 +57,5 @@ def verifica_rosto(user: User):
 
 
 if __name__ == '__main__':
+    # Test
     pass
