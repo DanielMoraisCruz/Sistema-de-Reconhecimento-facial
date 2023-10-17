@@ -28,7 +28,7 @@ def login():
     user = User(persisted_user[0], persisted_user[1],
                 persisted_user[2], persisted_user[3], persisted_user[4])
 
-    return responce('Login realizado com sucesso', 200)
+    return jsonify(user.return_infos())
 
 
 @app.route('/cadastro', methods=['POST'])
@@ -42,7 +42,7 @@ def cadastrar_user():
         add_user(user)
     except Exception as e:
         return resource_not_found('Erro ao cadastrar usuário ' + str(e))
-    return responce('Usuário cadastrado com sucesso', 201)
+    return jsonify(user.return_infos())
 
 
 @app.route('/deletar', methods=['DELETE'])
@@ -54,14 +54,14 @@ def delete_user():
         delet_user(user)
     except Exception as e:
         return resource_not_found('Erro ao deletar usuário ' + str(e))
-    return responce('Usuário deletado com sucesso', 200)
+    return custom_response('Usuário deletado com sucesso', 200)
 
 
-@app.route('/check-access/<nivel>', methods=['GET'])
-def check_nivel(nivel):
-    user: User = User(request.get_json()['email'])
+@app.route('/check-access/<nivel>/<email>', methods=['GET'])
+def check_nivel(nivel, email):
+    user: User = User(email)
     message, status = checar_nivel(user, nivel)
-    return responce(message, status)
+    return custom_response(message, status)
 
 
 def resource_not_found(message: str) -> Response:
@@ -71,7 +71,7 @@ def resource_not_found(message: str) -> Response:
     return response
 
 
-def responce(message: str, status: int) -> Response:
+def custom_response(message: str, status: int) -> Response:
     error_message = {"message": message}
     response = jsonify(error_message)
     response.status_code = status
