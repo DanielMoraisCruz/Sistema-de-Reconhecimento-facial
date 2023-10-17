@@ -120,7 +120,7 @@ def valida_senha_usuario(user: User):
 def checar_nivel(user: User, nivel_acesso: int):
     db = connect_to_db()
     cursor = db.cursor()
-    comando = "SELECT * FROM usuarios WHERE nivel_acesso = ? AND email = ?"
+    comando = "SELECT * FROM usuarios WHERE nivel_acesso >= ? AND email = ?"
     cursor.execute(comando, [nivel_acesso, user.email])
     result = cursor.fetchall()
     db.close()
