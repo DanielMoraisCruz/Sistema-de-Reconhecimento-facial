@@ -49,7 +49,7 @@ def verifica_rosto(user: User):
     faces_1 = np.array(faces_1)
     faces_2 = np.array(faces_2)
 
-    result = fr.compare_faces(faces_1, faces_2, tolerance=0.3)
+    result = fr.compare_faces(faces_1, faces_2, tolerance=0.45)
     if result[0]:
         return True
     else:
