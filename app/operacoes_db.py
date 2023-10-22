@@ -1,6 +1,6 @@
 import sqlite3
 
-from usuario.user import User
+from user import User
 
 # create a connection to the database
 
@@ -132,7 +132,7 @@ def checar_nivel(user: User, nivel_acesso: int):
 
 
 def connect_to_db():
-    db = sqlite3.connect("./database/database.db")
+    db = sqlite3.connect("./app/database.db")
     return db
 
 

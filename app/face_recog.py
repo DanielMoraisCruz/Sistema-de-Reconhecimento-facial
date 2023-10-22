@@ -5,7 +5,7 @@ import face_recognition as fr
 import numpy as np
 
 from operacoes_db import get_user
-from usuario.user import User
+from user import User
 
 
 def encod_face(img=None):

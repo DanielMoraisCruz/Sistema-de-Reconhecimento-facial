@@ -3,8 +3,8 @@ from flask_cors import CORS
 
 from operacoes_db import (add_user, checar_nivel, delet_user, get_one_user,
                           user_existe)
-from recog_face import verifica_rosto
-from usuario.user import User
+from face_recog import verifica_rosto
+from user import User
 
 app = Flask(__name__)
 app.config['JASON_SORT_KEYS'] = False
